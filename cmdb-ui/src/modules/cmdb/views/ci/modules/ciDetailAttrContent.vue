@@ -17,7 +17,15 @@
         :ci_id="ci._id"
         :attr_id="attr.id"
       ></PasswordField>
-      <template v-else-if="attr.value_type === '6'">{{ JSON.stringify(ci[attr.name] || {}) }}</template>
+      <a-tooltip
+        v-else-if="attr.value_type === '6'"
+        :title="JSON.stringify(ci[attr.name] || {})"
+        overlayClassName="ci-detail-attr-json-tooltip"
+      >
+        <span class="ci-detail-attr-json">
+          {{ JSON.stringify(ci[attr.name] || {}) }}
+        </span>
+      </a-tooltip>
       <template v-else-if="attr.is_choice">
         <template v-if="attr.is_list">
           <span
@@ -348,4 +356,22 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.ci-detail-attr-json {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+</style>
+
+<style lang="less">
+.ci-detail-attr-json-tooltip {
+
+  .ant-tooltip-content {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}
+</style>
